@@ -15,7 +15,6 @@ export interface AutocompleteProps {
   renderCheckIcon?: React.ReactNode;
   renderCreateIcon?: React.ReactNode
   placeholder?: string;
-  colorScheme?: string;
   renderBadge: (option: Option) => React.ReactNode;
   inputName?: string;
   inputId?: string;
@@ -23,7 +22,7 @@ export interface AutocompleteProps {
   createText?: string;
 }
 
-export const Autocomplete = ({ options, result, setResult, placeholder, colorScheme, renderBadge, inputName, inputId, bgHoverColor, createText = "Create option", ...props }: AutocompleteProps) => {
+export const Autocomplete = ({ options, result, setResult, placeholder, renderBadge, inputName, inputId, bgHoverColor, createText = "Create option", ...props }: AutocompleteProps) => {
   const [optionsCopy, setOptionsCopy] = useState<Option[]>(options);
   const [partialResult, setPartialResult] = useState<Option[]>();
   const [displayOptions, setDisplayOptions] = useState<boolean>(false);
