@@ -3,6 +3,14 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "keywords": [
+    "chakra",
+    "chakra-ui",
+    "autocomplete",
+    "input",
+    "react",
+    "typescript"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Fedeorlandau/chakra-ui-simple-autocomplete"
@@ -62,7 +70,14 @@
     "size-limit": "^4.9.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.3",

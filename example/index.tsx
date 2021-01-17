@@ -24,23 +24,24 @@ const App = () => {
           setResult={(options: Option[]) => {
             setResult(options);
           }}
-          renderCheckIcon={<CheckCircleIcon color="green.500" mr={2}/>}
+          renderCheckIcon={<CheckCircleIcon color="green.500" mr={2} />}
           placeholder="Autocomplete"
-          renderBadge={(option: Option) => <Badge
-            borderRadius="full"
-            px="2"
-            colorScheme="teal"
-            mx={1}
-            cursor="pointer"
-          >
-            {option.label}
-            <CloseIcon ml={1} w={2} h={2} mb="4px" />
-          </Badge>}
-          renderCreateIcon={<SmallAddIcon color="green.500" mr={2}/>}
+          renderBadge={(option: Option) => (
+            <Badge
+              borderRadius="full"
+              px="2"
+              colorScheme="teal"
+              mx={1}
+              cursor="pointer"
+            >
+              {option.label}
+              <CloseIcon ml={1} w={2} h={2} mb="4px" />
+            </Badge>
+          )}
+          renderCreateIcon={<SmallAddIcon color="green.500" mr={2} />}
           createText="Create new option"
         />
       </Box>
-      
     </ChakraProvider>
   );
 };

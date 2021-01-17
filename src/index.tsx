@@ -13,7 +13,7 @@ export interface AutocompleteProps {
   result: Option[];
   setResult: (options: Option[]) => void;
   renderCheckIcon?: React.ReactNode;
-  renderCreateIcon?: React.ReactNode
+  renderCreateIcon?: React.ReactNode;
   placeholder?: string;
   renderBadge: (option: Option) => React.ReactNode;
   inputName?: string;
@@ -22,7 +22,18 @@ export interface AutocompleteProps {
   createText?: string;
 }
 
-export const Autocomplete = ({ options, result, setResult, placeholder, renderBadge, inputName, inputId, bgHoverColor, createText = "Create option", ...props }: AutocompleteProps) => {
+export const Autocomplete = ({
+  options,
+  result,
+  setResult,
+  placeholder,
+  renderBadge,
+  inputName,
+  inputId,
+  bgHoverColor,
+  createText = 'Create option',
+  ...props
+}: AutocompleteProps) => {
   const [optionsCopy, setOptionsCopy] = useState<Option[]>(options);
   const [partialResult, setPartialResult] = useState<Option[]>();
   const [displayOptions, setDisplayOptions] = useState<boolean>(false);
@@ -32,7 +43,9 @@ export const Autocomplete = ({ options, result, setResult, placeholder, renderBa
   const filterOptions = (inputValue: string) => {
     if (inputValue) {
       setDisplayOptions(true);
-      setPartialResult(matchSorter(optionsCopy, inputValue, { keys: ['label', 'value'] }));
+      setPartialResult(
+        matchSorter(optionsCopy, inputValue, { keys: ['label', 'value'] })
+      );
       setInputValue(inputValue);
     } else {
       setDisplayOptions(false);
@@ -41,14 +54,21 @@ export const Autocomplete = ({ options, result, setResult, placeholder, renderBa
 
   const selectOption = (option: Option) => {
     if (result.includes(option)) {
-      setResult([...result.filter((existingOption) => existingOption.value != option.value)]);
+      setResult([
+        ...result.filter(
+          (existingOption) => existingOption.value !== option.value
+        ),
+      ]);
     } else {
       setResult([option, ...result]);
     }
   };
 
   const isOptionSelected = (option: Option) => {
-    return result.filter((selectedOption) => selectedOption.value == option.value).length > 0;
+    return (
+      result.filter((selectedOption) => selectedOption.value === option.value)
+        .length > 0
+    );
   };
 
   const createOption = () => {
@@ -68,28 +88,37 @@ export const Autocomplete = ({ options, result, setResult, placeholder, renderBa
 
   const renderCheckIcon = (option: Option) => {
     if (isOptionSelected(option)) {
-      if(props.renderCheckIcon) {
+      if (props.renderCheckIcon) {
         return props.renderCheckIcon;
       } else {
         return <CheckCircleIcon color="green.500" mr={2} />;
       }
     }
     return null;
-  }
+  };
 
   const renderCreateIcon = () => {
-    if(props.renderCreateIcon) {
+    if (props.renderCreateIcon) {
       return props.renderCreateIcon;
     } else {
       return <SmallAddIcon color="green.500" mr={2} />;
     }
-  }
+  };
 
   return (
     <Box data-testid="simple-autocomplete">
       {result.length > 0 && (
-        <Box my={2} >
-          {result.map((option) => <Box d="inline-block" onClick={() => selectOption(option)} key={option.value}> { renderBadge(option)} </Box>)}
+        <Box my={2}>
+          {result.map((option) => (
+            <Box
+              d="inline-block"
+              onClick={() => selectOption(option)}
+              key={option.value}
+            >
+              {' '}
+              {renderBadge(option)}{' '}
+            </Box>
+          ))}
         </Box>
       )}
       <Input
@@ -125,7 +154,14 @@ export const Autocomplete = ({ options, result, setResult, placeholder, renderBa
             );
           })}
           {!partialResult?.length && (
-            <ListItem _hover={{ bg: bgHoverColor || 'gray.100' }} my={1} p={2} cursor="pointer" data-testid="create-option" onClick={() => createOption()}>
+            <ListItem
+              _hover={{ bg: bgHoverColor || 'gray.100' }}
+              my={1}
+              p={2}
+              cursor="pointer"
+              data-testid="create-option"
+              onClick={() => createOption()}
+            >
               <Flex align="center">
                 {renderCreateIcon()}
                 {createText}
@@ -137,4 +173,3 @@ export const Autocomplete = ({ options, result, setResult, placeholder, renderBa
     </Box>
   );
 };
-
