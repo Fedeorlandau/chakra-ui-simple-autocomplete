@@ -3,6 +3,10 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fedeorlandau/chakra-ui-simple-autocomplete"
+  },
   "files": [
     "dist",
     "src"
