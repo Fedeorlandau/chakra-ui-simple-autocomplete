@@ -3,6 +3,8 @@
 
 > A simple autocomplete input built with Chakra UI
 
+## Demo
+[CodeSanbox](https://codesandbox.io/s/chakra-ui-simple-autocomplete-cvj92?file=/src/App.tsx)
 
 ## Install
 ```bash

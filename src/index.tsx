@@ -86,6 +86,14 @@ export const Autocomplete = ({
     }
   };
 
+  const selectOptionFromList = (option: Option) => {
+    selectOption(option);
+    setDisplayOptions(false);
+    if (inputRef && inputRef.current !== null) {
+      inputRef.current.value = '';
+    }
+  };
+
   const renderCheckIcon = (option: Option) => {
     if (isOptionSelected(option)) {
       if (props.renderCheckIcon) {
@@ -115,7 +123,6 @@ export const Autocomplete = ({
               onClick={() => selectOption(option)}
               key={option.value}
             >
-              {' '}
               {renderBadge(option)}{' '}
             </Box>
           ))}
@@ -144,7 +151,7 @@ export const Autocomplete = ({
                 my={1}
                 p={2}
                 cursor="pointer"
-                onClick={() => selectOption(option)}
+                onClick={() => selectOptionFromList(option)}
               >
                 <Flex align="center">
                   {renderCheckIcon(option)}
