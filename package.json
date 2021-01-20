@@ -29,8 +29,7 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why",
-    "dev": "parcel example/index.html"
+    "analyze": "size-limit --why"
   },
   "peerDependencies": {
     "react": ">=16"
