@@ -10,7 +10,13 @@ const options = [
   { value: 'css', label: 'CSS' },
 ];
 
-const AutocompleteWrapper = () => {
+interface AutocompleteWrapperProps {
+  allowCreation?: boolean;
+}
+
+const AutocompleteWrapper = ({
+  allowCreation = true,
+}: AutocompleteWrapperProps) => {
   const [result, setResult] = React.useState<Option[]>([]);
   return (
     <Autocomplete
@@ -20,6 +26,7 @@ const AutocompleteWrapper = () => {
         <div data-testid={`badge-${option.value}`}></div>
       )}
       result={result}
+      allowCreation={allowCreation}
       setResult={(options: Option[]) => {
         setResult(options);
       }}
@@ -89,6 +96,15 @@ describe('it', () => {
       userEvent.type(input, 'PH');
       fireEvent.click(screen.getByText('PHP'));
       expect(screen.getByTestId('badge-PHP')).toBeTruthy();
+    }
+  });
+
+  it('should display Not found if no options are present', () => {
+    const { container } = render(<AutocompleteWrapper allowCreation={false} />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      userEvent.type(input, 'PHP');
+      expect(screen.getByTestId('not-found')).toBeTruthy();
     }
   });
 });

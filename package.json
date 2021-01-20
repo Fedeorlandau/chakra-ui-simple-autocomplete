@@ -36,7 +36,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx test && tsdx lint"
     }
   },
   "prettier": {
@@ -51,11 +51,11 @@
   "size-limit": [
     {
       "path": "dist/chakra-ui-simple-autocomplete.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/chakra-ui-simple-autocomplete.esm.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     }
   ],
   "devDependencies": {

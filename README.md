@@ -1,12 +1,14 @@
 # Chakra UI Simple Autocomplete
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
 
-> A simple autocomplete input built with Chakra UI
+A simple autocomplete input built with Chakra UI
 
 ## Demo
 ![demo](https://media.giphy.com/media/OMbcK9dsAEc5pAop1z/giphy.gif)
 
 [Typescript CodeSandbox](https://codesandbox.io/s/chakra-ui-simple-autocomplete-cvj92?file=/src/App.tsx)
+
+[Javascript CodeSandbox](https://codesandbox.io/s/chakra-ui-simple-autocomplete-js-lu10n?file=/src/App.js)
 
 ## Install
 ```bash
@@ -18,7 +20,7 @@ npm install chakra-ui-simple-autocomplete
 
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
-import { Badge, Box, ChakraProvider } from '@chakra-ui/react';
+import { Badge, Box } from '@chakra-ui/react';
 import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
@@ -61,7 +63,7 @@ const AutocompleteWrapper = () => {
 
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
-import { Badge, Box, ChakraProvider } from '@chakra-ui/react';
+import { Badge, Box } from '@chakra-ui/react';
 import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
@@ -135,7 +137,7 @@ const AutocompleteWrapper = () => {
 | options                  | Option[]    | Yes      | An array of Option to render on the autocomplete                                                                                                      |
 | result            | Option[]   |     Yes     |State where the selected options are going to be stored                                                                                                                              |
 | setResult                  | (options: Option[]) => void   | Yes      | Callback to be triggered everytime the we add/remove an option from the result                                                                                                              |
-| renderBadge        | (option: Option) => React.ReactNode   |    Yes      | Renders each selected option}                                                                          |
+| renderBadge        | (option: Option) => React.ReactNode   |    Yes      | Renders each selected option                                                                          |
 | renderCheckIcon        | React.ReactNode   |    No      | Custom check icon |
 | renderCreateIcon           | React.ReactNode | No      | Custom create icon                                                                                                                             |
 | placeholder       | String | No      | Placeholder for the input                                                                                                       |
@@ -144,6 +146,9 @@ const AutocompleteWrapper = () => {
 | inputId | String   |     No     | Input id                                                     |
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
 | createText         | String   |    No      | "Create new option" text                                                           |
+| allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                                          |
+
 
 ## :hammer_and_wrench: Support
 

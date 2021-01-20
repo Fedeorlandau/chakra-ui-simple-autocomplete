@@ -20,6 +20,8 @@ export interface AutocompleteProps {
   inputId?: string;
   bgHoverColor?: string;
   createText?: string;
+  allowCreation?: boolean;
+  notFoundText?: string;
 }
 
 export const Autocomplete = ({
@@ -31,7 +33,9 @@ export const Autocomplete = ({
   inputName,
   inputId,
   bgHoverColor,
-  createText = 'Create option',
+  createText,
+  allowCreation,
+  notFoundText,
   ...props
 }: AutocompleteProps) => {
   const [optionsCopy, setOptionsCopy] = useState<Option[]>(options);
@@ -72,7 +76,7 @@ export const Autocomplete = ({
   };
 
   const createOption = () => {
-    if (inputValue) {
+    if (inputValue && allowCreation) {
       const newOption: Option = {
         label: inputValue,
         value: inputValue,
@@ -160,7 +164,7 @@ export const Autocomplete = ({
               </ListItem>
             );
           })}
-          {!partialResult?.length && (
+          {!partialResult?.length && allowCreation && (
             <ListItem
               _hover={{ bg: bgHoverColor || 'gray.100' }}
               my={1}
@@ -175,8 +179,19 @@ export const Autocomplete = ({
               </Flex>
             </ListItem>
           )}
+          {!partialResult?.length && !allowCreation && (
+            <ListItem my={1} p={2} data-testid="not-found">
+              <Flex align="center">{notFoundText}</Flex>
+            </ListItem>
+          )}
         </List>
       )}
     </Box>
   );
+};
+
+Autocomplete.defaultProps = {
+  notFoundText: 'Not found',
+  allowCreation: true,
+  createText: 'Create option',
 };
