@@ -8,6 +8,8 @@
 
 [Typescript CodeSandbox](https://codesandbox.io/s/chakra-ui-simple-autocomplete-cvj92?file=/src/App.tsx)
 
+[Javascript CodeSandbox](https://codesandbox.io/s/chakra-ui-simple-autocomplete-js-lu10n?file=/src/App.js)
+
 ## Install
 ```bash
 npm install chakra-ui-simple-autocomplete
@@ -18,7 +20,7 @@ npm install chakra-ui-simple-autocomplete
 
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
-import { Badge, Box, ChakraProvider } from '@chakra-ui/react';
+import { Badge, Box } from '@chakra-ui/react';
 import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
@@ -61,7 +63,7 @@ const AutocompleteWrapper = () => {
 
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
-import { Badge, Box, ChakraProvider } from '@chakra-ui/react';
+import { Badge, Box } from '@chakra-ui/react';
 import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
@@ -144,6 +146,9 @@ const AutocompleteWrapper = () => {
 | inputId | String   |     No     | Input id                                                     |
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
 | createText         | String   |    No      | "Create new option" text                                                           |
+| allowCreation         | String   |    No      |  Show the create new tag option. Default true                                                           |
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is false.                                                          |
+
 
 ## :hammer_and_wrench: Support
 
