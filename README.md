@@ -137,7 +137,7 @@ const AutocompleteWrapper = () => {
 | options                  | Option[]    | Yes      | An array of Option to render on the autocomplete                                                                                                      |
 | result            | Option[]   |     Yes     |State where the selected options are going to be stored                                                                                                                              |
 | setResult                  | (options: Option[]) => void   | Yes      | Callback to be triggered everytime the we add/remove an option from the result                                                                                                              |
-| renderBadge        | (option: Option) => React.ReactNode   |    Yes      | Renders each selected option}                                                                          |
+| renderBadge        | (option: Option) => React.ReactNode   |    Yes      | Renders each selected option                                                                          |
 | renderCheckIcon        | React.ReactNode   |    No      | Custom check icon |
 | renderCreateIcon           | React.ReactNode | No      | Custom create icon                                                                                                                             |
 | placeholder       | String | No      | Placeholder for the input                                                                                                       |
@@ -146,8 +146,8 @@ const AutocompleteWrapper = () => {
 | inputId | String   |     No     | Input id                                                     |
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
 | createText         | String   |    No      | "Create new option" text                                                           |
-| allowCreation         | String   |    No      |  Show the create new tag option. Default true                                                           |
-| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is false.                                                          |
+| allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                                          |
 
 
 ## :hammer_and_wrench: Support
