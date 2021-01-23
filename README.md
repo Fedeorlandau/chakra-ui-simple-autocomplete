@@ -1,7 +1,8 @@
 # Chakra UI Simple Autocomplete
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
 
 A simple autocomplete input built with Chakra UI
+
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
 
 ## Demo
 ![demo](https://media.giphy.com/media/OMbcK9dsAEc5pAop1z/giphy.gif)
