@@ -22,6 +22,7 @@ export interface AutocompleteProps {
   createText?: string;
   allowCreation?: boolean;
   notFoundText?: string;
+  isInvalid?: boolean;
 }
 
 export const Autocomplete = ({
@@ -36,6 +37,7 @@ export const Autocomplete = ({
   createText,
   allowCreation,
   notFoundText,
+  isInvalid,
   ...props
 }: AutocompleteProps) => {
   const [optionsCopy, setOptionsCopy] = useState<Option[]>(options);
@@ -138,6 +140,7 @@ export const Autocomplete = ({
         placeholder={placeholder}
         onChange={(e) => filterOptions(e.currentTarget.value)}
         ref={inputRef}
+        isInvalid={isInvalid}
       />
       {displayOptions && (
         <List
