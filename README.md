@@ -148,7 +148,8 @@ const AutocompleteWrapper = () => {
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
 | createText         | String   |    No      | "Create new option" text                                                           |
 | allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
-| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                                          |
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                               |                                             
+| isInvalid           | Boolean  |  No  |  If `true`, the form control will be invalid.                                                                      |
 
 
 ## :hammer_and_wrench: Support
