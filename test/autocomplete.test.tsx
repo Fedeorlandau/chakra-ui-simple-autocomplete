@@ -20,7 +20,7 @@ const AutocompleteWrapper = ({
   const [result, setResult] = React.useState<Option[]>([]);
   return (
     <Autocomplete
-      inputId="autocomplete-input"
+      id="autocomplete-input"
       options={options}
       renderBadge={(option: Option) => (
         <div data-testid={`badge-${option.value}`}></div>
@@ -31,6 +31,62 @@ const AutocompleteWrapper = ({
         setResult(options);
       }}
     />
+  );
+};
+
+const WithCustomCheckIcon = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+  return (
+    <Autocomplete
+      id="autocomplete-input"
+      options={options}
+      result={result}
+      renderCheckIcon={(option) => (
+        <div data-testid="custom-check-icon">{option.label}</div>
+      )}
+      setResult={(options: Option[]) => {
+        setResult(options);
+      }}
+    />
+  );
+};
+
+const WithCustomCreateIcon = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+  return (
+    <Autocomplete
+      id="autocomplete-input"
+      options={options}
+      result={result}
+      renderCreateIcon={() => {
+        return <div>Create now</div>;
+      }}
+      setResult={(options: Option[]) => {
+        setResult(options);
+      }}
+    />
+  );
+};
+
+const WithRef = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+  const [value, setValue] = React.useState<string>();
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  return (
+    <>
+      <div data-testid="ref-container">{value}</div>
+      <Autocomplete
+        id="autocomplete-input"
+        options={options}
+        result={result}
+        setResult={(options: Option[]) => {
+          setValue(ref?.current?.value);
+          setResult(options);
+        }}
+        ref={ref}
+      />
+    </>
   );
 };
 
@@ -105,6 +161,36 @@ describe('it', () => {
     if (input) {
       userEvent.type(input, 'PHP');
       expect(screen.getByTestId('not-found')).toBeTruthy();
+    }
+  });
+
+  it('should render a custom check icon', () => {
+    const { container } = render(<WithCustomCheckIcon />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      userEvent.type(input, 'Java');
+      fireEvent.click(screen.getByText('Javascript'));
+      userEvent.type(input, 'Java');
+      expect(screen.getByTestId('custom-check-icon')).toBeTruthy();
+    }
+  });
+
+  it('should render a custom create icon', () => {
+    const { container } = render(<WithCustomCreateIcon />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      userEvent.type(input, 'PHP');
+      expect(screen.getByText('Create now')).toBeTruthy();
+    }
+  });
+
+  it('should forward a ref into the input', () => {
+    const { container } = render(<WithRef />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      userEvent.type(input, 'Java');
+      fireEvent.click(screen.getByText('Javascript'));
+      expect(screen.getByText('Java')).toBeTruthy();
     }
   });
 });

@@ -21,8 +21,6 @@ npm install chakra-ui-simple-autocomplete
 
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
-import { Badge, Box } from '@chakra-ui/react';
-import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
   { value: 'javascript', label: 'Javascript' },
@@ -40,20 +38,7 @@ const AutocompleteWrapper = () => {
           options={options}
           result={result}
           setResult={(options: Option[]) => setResult(options)}
-          renderCheckIcon={<CheckCircleIcon color="green.500" mr={2}/>}
           placeholder="Autocomplete"
-          renderBadge={(option: Option) => <Badge
-            borderRadius="full"
-            px="2"
-            colorScheme="teal"
-            mx={1}
-            cursor="pointer"
-          >
-            {option.label}
-            <CloseIcon ml={1} w={2} h={2} mb="4px" />
-          </Badge>}
-          renderCreateIcon={<SmallAddIcon color="green.500" mr={2}/>}
-          createText="Create new option"
         />
       </Box>
   );
@@ -65,7 +50,6 @@ const AutocompleteWrapper = () => {
 ```tsx
 import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
 import { Badge, Box } from '@chakra-ui/react';
-import { CheckCircleIcon, CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 
 const options = [
   { value: 'javascript', label: 'Javascript' },
@@ -106,20 +90,7 @@ const AutocompleteWrapper = () => {
                   form.setFieldValue('tags', options);
                   setResult(options);
                 }}
-                renderCheckIcon={<CheckCircleIcon color="green.500" mr={2}/>}
                 placeholder="Autocomplete"
-                renderBadge={(option: Option) => <Badge
-                  borderRadius="full"
-                  px="2"
-                  colorScheme="teal"
-                  mx={1}
-                  cursor="pointer"
-                >
-                  {option.label}
-                  <CloseIcon ml={1} w={2} h={2} mb="4px" />
-                </Badge>}
-                renderCreateIcon={<SmallAddIcon color="green.500" mr={2}/>}
-                createText="Create new option"
               />
             )}
           </Field>
@@ -138,19 +109,14 @@ const AutocompleteWrapper = () => {
 | options                  | Option[]    | Yes      | An array of Option to render on the autocomplete                                                                                                      |
 | result            | Option[]   |     Yes     |State where the selected options are going to be stored                                                                                                                              |
 | setResult                  | (options: Option[]) => void   | Yes      | Callback to be triggered everytime the we add/remove an option from the result                                                                                                              |
-| renderBadge        | (option: Option) => React.ReactNode   |    Yes      | Renders each selected option                                                                          |
-| renderCheckIcon        | React.ReactNode   |    No      | Custom check icon |
-| renderCreateIcon           | React.ReactNode | No      | Custom create icon                                                                                                                             |
+| renderBadge        | (option: Option) => React.ReactNode   |    No      | Renders each selected option                                                                          |
+| renderCheckIcon        | (option: Option) => React.ReactNode   |    No      | Custom check icon |
+| renderCreateIcon           | () => React.ReactNode | No      | Custom create icon                                                                                                                             |
 | placeholder       | String | No      | Placeholder for the input                                                                                                       |
 | colorScheme           | String |    No      | Color scheme to be applied on the input                           |
-| inputName        | String   |    No      | Input name                                                                     |
-| inputId | String   |     No     | Input id                                                     |
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
-| createText         | String   |    No      | "Create new option" text                                                           |
 | allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
 | notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                               |                                             
-| isInvalid           | Boolean  |  No  |  If `true`, the form control will be invalid.                                                                      |
-
 
 ## :hammer_and_wrench: Support
 
