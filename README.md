@@ -1,76 +1,137 @@
-# React Package Starter
+# Chakra UI Simple Autocomplete
 
-This is a simple and slightly opinionated starter kit for developing and publishing React packages. It comes with a several pre-configured tools, so you could focus on coding instead of configuring a project for the nth time.
+A simple autocomplete input built with Chakra UI
 
-## Getting started
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Downloads][downloads-image]][npm-url]
 
-```console
-npx degit TimMikeladze/tsup-react-package-starter my-react-package
+## Demo
+![demo](https://media.giphy.com/media/OMbcK9dsAEc5pAop1z/giphy.gif)
 
-yarn && yarn dev
+[Typescript CodeSandbox](https://codesandbox.io/s/affectionate-cartwright-c6y24)
+
+## Install
+```bash
+npm install chakra-ui-simple-autocomplete
 ```
-
-❗Important note: This project uses [yarn](https://yarnpkg.com/) for managing dependencies.
-
-## What's included?
-
-- ⚡️[tsup](https://github.com/egoist/tsup) - The simplest and fastest way to bundle your TypeScript libraries. Used to bundle package as ESM and CJS modules.
-- 📖 [Storybook](https://storybook.js.org/) - Build UI components and pages in isolation. It streamlines UI development, testing, and documentation.
-- 🧪 [Jest](https://jestjs.io/) - A testing framework for JavaScript. Preconfigured to work with TypeScript and JSX.
-- 🔼 [Release](https://github.com/vercel/release) - Release is a command line tool to automatically generate a new GitHub Release and populates it with the changes (commits) made since the last release.
-- 🐙 [Test & Publish via Github Actions](https://docs.github.com/en/actions) - CI/CD workflows for your package. Run tests on every commit plus integrate with Github Releases to automate publishing package to NPM and Storybook to Github Pages.
-- 📄 [Commitizen](https://github.com/commitizen/cz-cli) — When you commit with Commitizen, you'll be prompted to fill out any required commit fields at commit time.
-- 🚓 [Commitlint](https://github.com/conventional-changelog/commitlint) — Checks that your commit messages meet the conventional commit format.
-- 🐶 [Husky](https://github.com/typicode/husky) — Running scripts before committing.
-- 🚫 [lint-staged](https://github.com/okonet/lint-staged) — Run linters on git staged files
-- 🖌 [Renovate](https://github.com/renovatebot/renovate) - Universal dependency update tool that fits into your workflows. Configured to periodically check your dependencies for updates and send automated pull requests.
-- ☑️ [ESLint](https://eslint.org/) - A linter for JavaScript. Includes a simple configuration for React projects based on the recommended ESLint and AirBnB configs.
 
 ## Usage
+- Usage Example with TSX/Typescript
 
-### Developing
+```tsx
+import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
 
-Watch and rebuild code with `tsup` and runs Storybook to preview your UI during development.
+const options = [
+  { value: 'javascript', label: 'Javascript' },
+  { value: 'chakra', label: 'Chakra' },
+  { value: 'react', label: 'React' },
+  { value: 'css', label: 'CSS' },
+];
 
-```console
-yarn dev
+const AutocompleteWrapper = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+
+  return (
+      <Box maxW="md">
+        <Autocomplete
+          options={options}
+          result={result}
+          setResult={(options: Option[]) => setResult(options)}
+          placeholder="Autocomplete"
+        />
+      </Box>
+  );
+};
 ```
 
-Run tests with `jest` when changes are detected.
+- Usage Example with TSX and Formik + Yup
 
-```console
-yarn test:watch
+```tsx
+import { Autocomplete, Option } from 'chakra-ui-simple-autocomplete';
+import { Badge, Box } from '@chakra-ui/react';
+
+const options = [
+  { value: 'javascript', label: 'Javascript' },
+  { value: 'chakra', label: 'Chakra' },
+  { value: 'react', label: 'React' },
+  { value: 'css', label: 'CSS' },
+];
+
+const autocompleteSchema = Yup.object().shape({
+  tags: Yup.array()
+    .of(
+      Yup.object().shape({
+        value: Yup.string(),
+        label: Yup.string(),
+      }),
+    )
+    .min(1),
+});
+
+const AutocompleteWrapper = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+
+  return (
+    <Formik
+      validationSchema={autocompleteSchema}
+      initialValues={{ tags: [] }}
+      onSubmit={(values) => {
+        console.log(values)
+      }}>
+      {(props) => (
+        <Box maxW="md">
+          <Field name="tags">
+            {({ field, form }: FieldProps) => (
+              <Autocomplete
+                options={options}
+                result={result}
+                setResult={(options: Option[]) => {
+                  form.setFieldValue('tags', options);
+                  setResult(options);
+                }}
+                placeholder="Autocomplete"
+              />
+            )}
+          </Field>
+        </Box>
+      )}
+    </Formik>
+  );
+};
 ```
 
-To run all tests once without watching for changes.
+## Props
 
-```console
-yarn test
-```
 
-Build package with `tsup` for production.
+| Property               | Type     | Required | Description                                                                                                                                                     |
+| ---------------------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| options                  | Option[]    | Yes      | An array of Option to render on the autocomplete                                                                                                      |
+| result            | Option[]   |     Yes     |State where the selected options are going to be stored                                                                                                                              |
+| setResult                  | (options: Option[]) => void   | Yes      | Callback to be triggered everytime the we add/remove an option from the result                                                                                                              |
+| renderBadge        | (option: Option) => React.ReactNode   |    No      | Renders each selected option                                                                          |
+| renderCheckIcon        | (option: Option) => React.ReactNode   |    No      | Custom check icon |
+| renderCreateIcon           | () => React.ReactNode | No      | Custom create icon                                                                                                                             |
+| placeholder       | String | No      | Placeholder for the input                                                                                                       |
+| colorScheme           | String |    No      | Color scheme to be applied on the input                           |
+| bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
+| allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                               |                                             
 
-```console
-yarn build
-```
+## :hammer_and_wrench: Support
 
-### Committing
+Please [open an issue](https://github.com/leonard-henriquez/readme-boilerplate/issues/new) for support.
 
-When you are ready to commit simply run the following command to get a well formatted commit message. All staged files will automatically be linted and fixed as well.
+## :memo: Contributing
 
-```console
-yarn commit
-```
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/leonard-henriquez/readme-boilerplate/compare/).
 
-### Publishing
+## :scroll: License
 
-Create a semantic version tag and publish to Github Releases. When a new release is detected a Github Action will automatically build the package and publish it to NPM. Additionally, a Storybook will be published to Github pages.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Learn more about how to use the `release` command [here](https://github.com/vercel/release).
+[downloads-image]: https://img.shields.io/npm/dt/chakra-ui-simple-autocomplete.svg
 
-```console
-yarn release <optional semver type>
-```
+[npm-url]: https://www.npmjs.com/package/chakra-ui-simple-autocomplete
+[npm-image]: http://img.shields.io/npm/v/chakra-ui-simple-autocomplete.svg
 
-❗Important note: in order to publish package to NPM you must add your token as a Github Action secret. Learn more on how to configure your repository and publish packages through Github Actions [here](https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages).
-
+[travis-url]: https://travis-ci.org/Fedeorlandau/chakra-ui-simple-autocomplete
+[travis-image]: https://travis-ci.org/Fedeorlandau/chakra-ui-simple-autocomplete.svg
