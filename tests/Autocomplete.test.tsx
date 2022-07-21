@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Autocomplete, Option } from '../src';
 import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { Autocomplete, Option } from '../src';
 
 const options = [
   { value: 'javascript', label: 'Javascript' },
@@ -23,12 +22,12 @@ const AutocompleteWrapper = ({
       id="autocomplete-input"
       options={options}
       renderBadge={(option: Option) => (
-        <div data-testid={`badge-${option.value}`}></div>
+        <div data-testid={`badge-${option.value}`} />
       )}
       result={result}
       allowCreation={allowCreation}
-      setResult={(options: Option[]) => {
-        setResult(options);
+      setResult={(selectedOptions: Option[]) => {
+        setResult(selectedOptions);
       }}
     />
   );
@@ -44,8 +43,8 @@ const WithCustomCheckIcon = () => {
       renderCheckIcon={(option) => (
         <div data-testid="custom-check-icon">{option.label}</div>
       )}
-      setResult={(options: Option[]) => {
-        setResult(options);
+      setResult={(selectedOptions: Option[]) => {
+        setResult(selectedOptions);
       }}
     />
   );
@@ -58,11 +57,9 @@ const WithCustomCreateIcon = () => {
       id="autocomplete-input"
       options={options}
       result={result}
-      renderCreateIcon={() => {
-        return <div>Create now</div>;
-      }}
-      setResult={(options: Option[]) => {
-        setResult(options);
+      renderCreateIcon={() => <div>Create now</div>}
+      setResult={(selectedOptions: Option[]) => {
+        setResult(selectedOptions);
       }}
     />
   );
@@ -80,9 +77,9 @@ const WithRef = () => {
         id="autocomplete-input"
         options={options}
         result={result}
-        setResult={(options: Option[]) => {
+        setResult={(selectedOptions: Option[]) => {
           setValue(ref?.current?.value);
-          setResult(options);
+          setResult(selectedOptions);
         }}
         ref={ref}
       />
@@ -105,7 +102,7 @@ describe('it', () => {
     const { container } = render(<AutocompleteWrapper />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'Java');
+      fireEvent.change(input, { target: { value: 'Java' } });
       fireEvent.click(screen.getByText('Javascript'));
       expect(screen.getByTestId('badge-javascript')).toBeTruthy();
     }
@@ -115,13 +112,13 @@ describe('it', () => {
     const { container } = render(<AutocompleteWrapper />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'Java');
+      fireEvent.change(input, { target: { value: 'Java' } });
       fireEvent.click(screen.getByText('Javascript'));
       const badge = screen.getByTestId('badge-javascript');
       expect(badge).toBeTruthy();
       fireEvent.click(badge);
       const removedBadge = container.querySelector(
-        `[data-testid="badge-javascript"]`
+        '[data-testid="badge-javascript"]',
       );
       expect(removedBadge).toBeNull();
     }
@@ -131,7 +128,7 @@ describe('it', () => {
     const { container } = render(<AutocompleteWrapper />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'PHP');
+      fireEvent.change(input, { target: { value: 'PHP' } });
       fireEvent.click(screen.getByTestId('create-option'));
       const badge = screen.getByTestId('badge-PHP');
       expect(badge).toBeTruthy();
@@ -142,14 +139,14 @@ describe('it', () => {
     const { container } = render(<AutocompleteWrapper />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'PHP');
+      fireEvent.change(input, { target: { value: 'PHP' } });
       fireEvent.click(screen.getByTestId('create-option'));
       const badge = screen.getByTestId('badge-PHP');
       expect(badge).toBeTruthy();
       fireEvent.click(badge);
-      const removedBadge = container.querySelector(`[data-testid="badge-PHP"]`);
+      const removedBadge = container.querySelector('[data-testid="badge-PHP"]');
       expect(removedBadge).toBeNull();
-      userEvent.type(input, 'PH');
+      fireEvent.change(input, { target: { value: 'PH' } });
       fireEvent.click(screen.getByText('PHP'));
       expect(screen.getByTestId('badge-PHP')).toBeTruthy();
     }
@@ -159,7 +156,7 @@ describe('it', () => {
     const { container } = render(<AutocompleteWrapper allowCreation={false} />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'PHP');
+      fireEvent.change(input, { target: { value: 'PHP' } });
       expect(screen.getByTestId('not-found')).toBeTruthy();
     }
   });
@@ -168,9 +165,9 @@ describe('it', () => {
     const { container } = render(<WithCustomCheckIcon />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'Java');
+      fireEvent.change(input, { target: { value: 'Java' } });
       fireEvent.click(screen.getByText('Javascript'));
-      userEvent.type(input, 'Java');
+      fireEvent.change(input, { target: { value: 'Java' } });
       expect(screen.getByTestId('custom-check-icon')).toBeTruthy();
     }
   });
@@ -179,7 +176,7 @@ describe('it', () => {
     const { container } = render(<WithCustomCreateIcon />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'PHP');
+      fireEvent.change(input, { target: { value: 'PHP' } });
       expect(screen.getByText('Create now')).toBeTruthy();
     }
   });
@@ -188,7 +185,7 @@ describe('it', () => {
     const { container } = render(<WithRef />);
     const input = container.querySelector('#autocomplete-input');
     if (input) {
-      userEvent.type(input, 'Java');
+      fireEvent.change(input, { target: { value: 'Java' } });
       fireEvent.click(screen.getByText('Javascript'));
       expect(screen.getByText('Java')).toBeTruthy();
     }
