@@ -51,11 +51,11 @@
   "size-limit": [
     {
       "path": "dist/chakra-ui-simple-autocomplete.cjs.production.min.js",
-      "limit": "200 KB"
+      "limit": "400 KB"
     },
     {
       "path": "dist/chakra-ui-simple-autocomplete.esm.js",
-      "limit": "200 KB"
+      "limit": "400 KB"
     }
   ],
   "devDependencies": {
