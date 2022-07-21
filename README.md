@@ -7,7 +7,9 @@ A simple autocomplete input built with Chakra UI
 ## Demo
 ![demo](https://media.giphy.com/media/OMbcK9dsAEc5pAop1z/giphy.gif)
 
-[Typescript CodeSandbox](https://codesandbox.io/s/affectionate-cartwright-c6y24)
+[Storybook](https://fedeorlandau.github.io/chakra-ui-simple-autocomplete)
+
+[Typescript CodeSandbox](https://codesandbox.io/s/modest-shockley-ub3e50)
 
 ## Install
 ```bash
