@@ -21,6 +21,8 @@ export type Option = {
 export interface AutocompleteProps extends InputProps {
   allowCreation?: boolean;
   bgHoverColor?: string;
+  /** Optional prop for turning off the renderBadge function */
+  disableRenderBadge?: boolean,
   notFoundText?: string;
   /** Options to be displayed in the autocomplete */
   options: Option[];
@@ -66,6 +68,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       allowCreation,
       notFoundText,
       renderBadge = defaultRenderBadge,
+      disableRenderBadge = false,
       renderCheckIcon = defaultRenderCheckIcon,
       renderCreateIcon = defaultCreateIcon,
       ...rest
@@ -136,7 +139,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
 
     return (
       <Box data-testid="simple-autocomplete">
-        {result.length > 0 && (
+        {result.length > 0 && !disableRenderBadge && (
           <Box my={2}>
             {result.map((option) => (
               <Box
