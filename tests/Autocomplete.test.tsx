@@ -87,6 +87,22 @@ const WithRef = () => {
   );
 };
 
+const WithoutBadges = () => {
+  const [result, setResult] = React.useState<Option[]>([]);
+  return (
+    <Autocomplete
+      id="autocomplete-input"
+      disableRenderBadge
+      options={options}
+      result={result}
+      renderCreateIcon={() => <div>Create now</div>}
+      setResult={(selectedOptions: Option[]) => {
+        setResult(selectedOptions);
+      }}
+    />
+  );
+};
+
 describe('it', () => {
   it('renders the autocomplete input', () => {
     render(<AutocompleteWrapper />);
@@ -161,6 +177,17 @@ describe('it', () => {
     }
   });
 
+  it('should render the default check icon', () => {
+    const { container } = render(<AutocompleteWrapper />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      fireEvent.change(input, { target: { value: 'Java' } });
+      fireEvent.click(screen.getByText('Javascript'));
+      fireEvent.change(input, { target: { value: 'Java' } });
+      expect(screen.getByTestId('CheckIcon')).toBeTruthy();
+    }
+  });
+
   it('should render a custom check icon', () => {
     const { container } = render(<WithCustomCheckIcon />);
     const input = container.querySelector('#autocomplete-input');
@@ -188,6 +215,28 @@ describe('it', () => {
       fireEvent.change(input, { target: { value: 'Java' } });
       fireEvent.click(screen.getByText('Javascript'));
       expect(screen.getByText('Java')).toBeTruthy();
+    }
+  });
+
+  it('should not render the badges if disabled', () => {
+    const { container } = render(<WithoutBadges />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      fireEvent.change(input, { target: { value: 'PHP' } });
+      fireEvent.click(screen.getByTestId('create-option'));
+      const badge = screen.queryByTestId('badge-PHP');
+      expect(badge).toBeNull();
+    }
+  });
+
+  it('should not show the list if input is empty', () => {
+    const { container } = render(<AutocompleteWrapper />);
+    const input = container.querySelector('#autocomplete-input');
+    if (input) {
+      fireEvent.change(input, { target: { value: ' ' } });
+      expect(screen.queryByTestId('options-list')).toBeTruthy();
+      fireEvent.change(input, { target: { value: '' } });
+      expect(screen.queryByTestId('options-list')).toBeNull();
     }
   });
 });

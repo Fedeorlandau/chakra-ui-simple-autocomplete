@@ -17,13 +17,13 @@
     "url": "https://github.com/Fedeorlandau/chakra-ui-simple-autocomplete"
   },
   "scripts": {
-    "dev": "concurrently \"yarn build --watch\" \"yarn storybook\"",
+    "dev": "concurrently \"pnpm build --watch\" \"pnpm run storybook\"",
     "build": "tsup",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm run lint --fix",
     "test": "jest --coverage",
-    "test:ci": "yarn test --ci",
+    "test:ci": "pnpm test --ci",
     "test:watch": "jest --watch",
     "prepare": "husky install",
     "commit": "cz",
@@ -131,8 +131,8 @@
     "trim-newlines": "3.0.1"
   },
   "dependencies": {
-    "@chakra-ui/icons": "2.0.4",
-    "@chakra-ui/react": "2.2.4",
+    "@chakra-ui/icons": "2.0.15",
+    "@chakra-ui/react": "2.4.4",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "framer-motion": "6.5.1",

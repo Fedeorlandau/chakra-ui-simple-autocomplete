@@ -41,7 +41,7 @@ export interface AutocompleteProps extends InputProps {
 }
 
 const defaultRenderCheckIcon = (option: Option) => (
-  <CheckCircleIcon color="green.500" data-label={option.label} mr={2} />
+  <CheckCircleIcon color="green.500" data-label={option.label} mr={2} data-testid="CheckIcon" />
 );
 
 const defaultCreateIcon = () => (
@@ -164,6 +164,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             borderRadius="md"
             boxShadow="6px 5px 8px rgba(0,50,30,0.02)"
             mt={2}
+            data-testid="options-list"
           >
             {partialResult?.map((option) => (
               <ListItem
