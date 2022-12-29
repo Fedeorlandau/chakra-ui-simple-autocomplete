@@ -2,7 +2,7 @@
   "name": "chakra-ui-simple-autocomplete",
   "author": "Federico Orlandau",
   "description": "A simple autocomplete input built with Chakra UI",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "license": "MIT",
   "keywords": [
     "chakra",
