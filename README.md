@@ -116,7 +116,8 @@ const AutocompleteWrapper = () => {
 | colorScheme           | String |    No      | Color scheme to be applied on the input                           |
 | bgHoverColor          | String   |   No       | Background color when hovering the options                                                    |
 | allowCreation         | Boolean   |    No      |  Show the create new tag option. Default `true`                                                           |
-| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                               |                                             
+| notFoundText         | String   |    No      | "Not found" text to be displayed if allowCreation is `false`.                                               |                      
+| disableRenderBadge         | Boolean   |    No      | Optional prop for turning off the renderBadge function.                                               |                                             
 
 ## :hammer_and_wrench: Support
 
